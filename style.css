@@ -16,6 +16,14 @@ body {
 	min-height: 100vh;
 }
 
+.buttons {
+	margin: 20px;
+}
+
+h1 {
+	margin: 20px;
+}
+
 .container-wrapper {
 	height: 75vw;
 	width: 75vw;
@@ -27,8 +35,16 @@ body {
 
 .container {
 	display: grid;
-	grid-template-columns: repeat(3, 60px);
-	grid-template-rows: repeat(3, 60px);
 	height: 100%;
 	width: 100%;
+	grid-template-rows: repeat(var(--grid-row), 1fr);
+	grid-template-columns: repeat(var(--grid-col), 1fr);
+}
+
+.cell {
+	border: 0.5px solid black;
+	background: white;
+}
+
+.grid-size {
 }
