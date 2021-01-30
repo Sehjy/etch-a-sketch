@@ -39,12 +39,9 @@ h1 {
 	width: 100%;
 	grid-template-rows: repeat(var(--grid-row), 1fr);
 	grid-template-columns: repeat(var(--grid-col), 1fr);
+	border: 1px solid black;
 }
 
 .cell {
-	border: 0.5px solid black;
 	background: white;
-}
-
-.grid-size {
 }

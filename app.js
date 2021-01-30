@@ -5,6 +5,13 @@ const gridCont = document.querySelector(".container");
 const clearBtn = document.querySelector(".clear");
 const gridsizeBtn = document.querySelector(".grid-size");
 
+//select color options
+const colorFilters = document.querySelector(".color-select");
+
+let colorInput = "black";
+
+let colorSelect = "";
+
 //array to hold all the individual cells
 var cells = new Array();
 createGrid(4, 4);
@@ -26,8 +33,7 @@ function createGrid(rows, cols) {
 	//the eventListener is reset because it only applied to the old grid cells
 	cells.forEach((cell) =>
 		cell.addEventListener("mouseover", function (e) {
-			console.log(`${e.target} clicked`);
-			paintCell(e.target);
+			paintCell(e.target, colorInput);
 		})
 	);
 }
@@ -38,8 +44,9 @@ function clear() {
 }
 
 //function that paints a given cell when it is hovered over
-function paintCell(cell2paint) {
-	cell2paint.style.background = "black";
+function paintCell(cell2paint, paintColor) {
+	updateColorInput();
+	cell2paint.style.background = colorInput;
 }
 
 //function to reset grid values
@@ -67,6 +74,34 @@ function changeGrid() {
 	createGrid(sideLength, sideLength);
 }
 
+//returns a random number between 0 and 255
+function randomRGB() {
+	const randomBetween = (min, max) =>
+		min + Math.floor(Math.random() * (max - min + 1));
+	return randomBetween(0, 255);
+}
+
+function filterColor(e) {
+	switch (e.target.value) {
+		case "black":
+			colorSelect = "black";
+			break;
+		case "Rainbow":
+			colorSelect = "rainbow";
+			break;
+	}
+}
+
+function updateColorInput() {
+	if (colorSelect === "rainbow") {
+		colorInput =
+			"rgb(" + randomRGB() + "," + randomRGB() + "," + randomRGB() + ")";
+	} else {
+		colorInput = "black";
+	}
+	return;
+}
+
 //button event listener to clear board
 clearBtn.addEventListener("click", function () {
 	clear();
@@ -76,3 +111,5 @@ clearBtn.addEventListener("click", function () {
 gridsizeBtn.addEventListener("click", function () {
 	changeGrid();
 });
+
+colorFilters.addEventListener("click", filterColor);
