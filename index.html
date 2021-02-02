@@ -4,23 +4,35 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Etch-A-Sketch</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+			integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+			crossorigin="anonymous"
+		/>
 		<link href="./style.css" rel="stylesheet" />
 	</head>
 	<body>
 		<h1>Pixel Paintbrush</h1>
 		<div class="buttons">
-			<button class="grid-size">Change Grid Size</button>
-			<button class="clear">Clear</button>
+			<button class="grid-size"><i class="fas fa-expand"></i></button>
+			<button class="clear"><i class="fas fa-backspace"></i></button>
 		</div>
 		<div class="container-wrapper">
 			<div class="container"></div>
 		</div>
 		<div class="select">
-			<select name="colors" class="color-select">
-				<option value="black">Black</option>
+			<select name="colors" onChange="filterColor(this);" class="color-select">
+				<option value="Black">Black</option>
 				<option value="Rainbow">Rainbow</option>
 				<option value="Select">Select</option>
 			</select>
+			<input type="color" value="#000000" id="colorpicker" />
 		</div>
 		<script src="./app.js"></script>
 	</body>

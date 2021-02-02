@@ -8,14 +8,39 @@ const gridsizeBtn = document.querySelector(".grid-size");
 //select color options
 const colorFilters = document.querySelector(".color-select");
 
+const selectColorOption = document.getElementById("colorpicker");
+selectColorOption.disabled = true;
+
 let colorInput = "black";
 
-let colorSelect = "";
+let colorSelect = "black";
 
 //array to hold all the individual cells
 var cells = new Array();
 createGrid(4, 4);
 
+let mouseDown = false;
+
+//Event Listeners---------------------------------------------------------------------------
+//button event listener to clear board
+clearBtn.addEventListener("click", function () {
+	clear();
+});
+
+//event listener for changing grid size
+gridsizeBtn.addEventListener("click", function () {
+	changeGrid();
+});
+
+window.addEventListener("mousedown", function () {
+	mouseDown = true;
+});
+
+window.addEventListener("mouseup", function () {
+	mouseDown = false;
+});
+
+//Functions---------------------------------------------------------------------------------
 //Dynamically creates grid based on the amount of pixel dimensions the user would like to add
 function createGrid(rows, cols) {
 	gridCont.style.setProperty("--grid-row", rows);
@@ -45,8 +70,10 @@ function clear() {
 
 //function that paints a given cell when it is hovered over
 function paintCell(cell2paint, paintColor) {
-	updateColorInput();
-	cell2paint.style.background = colorInput;
+	if (mouseDown === false) {
+		updateColorInput();
+		cell2paint.style.background = colorInput;
+	}
 }
 
 //function to reset grid values
@@ -64,14 +91,17 @@ function resetGrid() {
 function changeGrid() {
 	//takes user input and assigns it to var
 	let sideLength = window.prompt(
-		"How many squares would you like per side of the square?"
+		"How many squares would you like per side of the square? (MAX = 100)"
 	);
 
-	///calls resetGrid to make new values
-	resetGrid();
+	//limits input values to only valid creations
+	if (sideLength <= 100 && sideLength > 0) {
+		///calls resetGrid to make new values
+		resetGrid();
 
-	//creates a brand new Grid
-	createGrid(sideLength, sideLength);
+		//creates a brand new Grid
+		createGrid(sideLength, sideLength);
+	} else changeGrid();
 }
 
 //returns a random number between 0 and 255
@@ -81,35 +111,37 @@ function randomRGB() {
 	return randomBetween(0, 255);
 }
 
-function filterColor(e) {
-	switch (e.target.value) {
-		case "black":
+//this will set the colorSelected option to be the one that the user picks
+function filterColor(colorFilters) {
+	let text = colorFilters.options[colorFilters.selectedIndex].value;
+	switch (text) {
+		//changes colorwheel color to black
+		case "Black":
+			selectColorOption.disabled = true;
+			selectColorOption.value = "black";
 			colorSelect = "black";
 			break;
 		case "Rainbow":
+			selectColorOption.disabled = true;
 			colorSelect = "rainbow";
+			break;
+		//makes the colorwheel clickable and sets colorselect option to the value picked
+		case "Select":
+			selectColorOption.disabled = false;
+			colorSelect = selectColorOption.value;
 			break;
 	}
 }
 
+//updates colorInput global variable that will be ran everytime you are going over a pixel
 function updateColorInput() {
 	if (colorSelect === "rainbow") {
 		colorInput =
 			"rgb(" + randomRGB() + "," + randomRGB() + "," + randomRGB() + ")";
-	} else {
+	} else if (colorSelect === "black") {
 		colorInput = "black";
+	} else {
+		colorInput = selectColorOption.value;
 	}
 	return;
 }
-
-//button event listener to clear board
-clearBtn.addEventListener("click", function () {
-	clear();
-});
-
-//event listener for changing grid size
-gridsizeBtn.addEventListener("click", function () {
-	changeGrid();
-});
-
-colorFilters.addEventListener("click", filterColor);

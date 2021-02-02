@@ -9,6 +9,7 @@
 }
 
 body {
+	background-image: url(https://wallpapercave.com/wp/wp3514116.jpg);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -17,11 +18,34 @@ body {
 }
 
 .buttons {
-	margin: 20px;
+	margin: 20px auto;
+	display: inline-flex;
+	justify-content: center;
+}
+
+.grid-size,
+.clear {
+	background: white;
+	cursor: pointer;
+	padding: 5px;
+	margin: auto;
+	font-size: x-large;
+	width: 2em;
+}
+
+.grid-size {
+	margin-right: 1rem;
+}
+
+.clear {
+	margin-left: 1rem;
 }
 
 h1 {
-	margin: 20px;
+	font-family: "Indie Flower", cursive;
+	font-size: 4rem;
+	color: red;
+	text-shadow: 5px 5px 0 black, 7px 7px 0 black;
 }
 
 .container-wrapper {
@@ -39,9 +63,28 @@ h1 {
 	width: 100%;
 	grid-template-rows: repeat(var(--grid-row), 1fr);
 	grid-template-columns: repeat(var(--grid-col), 1fr);
-	border: 1px solid black;
+	border: 10px ridge rgb(134, 131, 131);
 }
 
 .cell {
 	background: white;
+	border: 0.1px ridge grey;
+}
+
+.select {
+	position: relative;
+	margin: 20px;
+	display: inline-flex;
+	justify-content: center;
+}
+
+.color-select {
+	cursor: pointer;
+	font-size: medium;
+	background: white;
+}
+
+#colorpicker {
+	cursor: pointer;
+	margin-left: 1rem;
 }
